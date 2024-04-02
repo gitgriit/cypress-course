@@ -47,7 +47,7 @@ describe('Various Examples', () => {
         cy.getDataTest('add-grudge-button').click()
 
         cy.getDataTest('grudge-list').within(() => {
-            cy.get('li').should("have.length", 1)
+            cy.get('li').should("have.length", 1) 
         })
 
         cy.getDataTest('grudges-list-title').should("have.text", "Grudges")

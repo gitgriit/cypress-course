@@ -24,12 +24,21 @@ const items = [
       NOTE: Cypress has an async nature *docs`,
     id: "3",
   },
-];
+]
 
 const { default: ItemsAccordion } = require("@/app/components/Accordion");
 
 describe("Accordion.cy.jsx", () => {
   it("Items Accordion", () => {
-    cy.mount(<ItemsAccordion items={[items]} />);
+    cy.mount(<ItemsAccordion items={items} />);
+    cy.getDataTest('accordion-wrapper').within(() => {
+        cy.get('[data-test^="accordion-item"]').should('have.length', 3)
+    })
+
+    cy.contains(/Your tests will exist in a describe block./i).should('not.be.visible')
+    cy.getDataTest('accordion-item-1').find('[role=button]').click()
+    cy.contains(/Your tests will exist in a describe block./i).should('be.visible')
+    cy.getDataTest('accordion-item-1').find('[role=button]').click()
+    cy.contains(/Your tests will exist in a describe block./i).should('not.be.visible')
   });
 });
